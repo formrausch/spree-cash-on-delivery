@@ -12,7 +12,7 @@ module Spree
       payment.order.adjustments.create({ :amount => payment.payment_method.preferred_charge.to_f,
                                  :source => payment,
                                  :originator => self,
-                                 :locked => true,
+                                 :mandatory => true,
                                  :label => I18n.t(:cash_on_delivery_label) }, :without_protection => true)
     end
 
