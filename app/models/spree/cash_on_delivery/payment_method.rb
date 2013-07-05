@@ -60,5 +60,10 @@ module Spree
     def method_type
       'cash_on_delivery'
     end
+    
+    def auto_capture?
+      true
+    end
+    
   end
 end
