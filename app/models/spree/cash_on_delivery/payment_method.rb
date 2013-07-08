@@ -14,6 +14,7 @@ module Spree
                                  :originator => self,
                                  :mandatory => true,
                                  :label => I18n.t(:cash_on_delivery_label) }, :without_protection => true)
+      payment.update_attribute(:amount, payment.amount + payment.payment_method.preferred_charge.to_f) 
     end
 
     def update_adjustment(adjustment, src)
