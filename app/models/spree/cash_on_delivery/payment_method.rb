@@ -18,7 +18,7 @@ module Spree
     end
 
     def update_adjustment(adjustment, src)
-      adjustment.update_attribute_without_callbacks(:amount, adjustment.order.payment.payment_method.preferred_charge.to_f)
+      adjustment.update_attribute_without_callbacks(:amount, adjustment.adjustable.payment.payment_method.preferred_charge.to_f)
     end
 
 
