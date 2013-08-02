@@ -1,4 +1,4 @@
-<% if payment.order.shipment.shipping_method.name != "Osebni prevzem" %>
+<% if @order.shipment.shipping_method.name != "Osebni prevzem" %>
   <%= t('fee', :amount => number_to_currency(payment_method.preferred_charge, currency: Spree::Config.preferred_currency, unit: "")) %> €
 <% end %>
 <% @order.bill_address ||= Spree::Address.default %>
