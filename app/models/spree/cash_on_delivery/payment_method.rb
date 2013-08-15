@@ -20,7 +20,7 @@ module Spree
     end
 
     def update_adjustment(adjustment, src)
-      if payment.order.shipment.shipping_method.name != "Osebni prevzem"
+      if adjustment.adjustable.shipment.shipping_method.name != "Osebni prevzem"
         adjustment.update_attribute_without_callbacks(:amount, adjustment.adjustable.payments.last.payment_method.preferred_charge.to_f)
       end
     end
