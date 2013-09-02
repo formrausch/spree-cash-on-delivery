@@ -23,7 +23,8 @@ module Spree
       if adjustment.adjustable.shipment.shipping_method.name != "Osebni prevzem" && !adjustment.adjustable.payments.empty?  && adjustment.adjustable.payments.last.payment_method.is_a?(Spree::CashOnDelivery::PaymentMethod)
         adjustment.update_attribute_without_callbacks(:amount, adjustment.adjustable.payments.last.payment_method.preferred_charge.to_f)
       else
-        adjustment.destroy
+        #adjustment.destroy
+        adjustment.update_attribute_without_callbacks(:amount, 0.0)
       end
     end
 
