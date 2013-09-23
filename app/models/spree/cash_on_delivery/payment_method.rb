@@ -9,18 +9,19 @@ module Spree
 
     def post_create(payment)
       payment.order.adjustments.each { |a| a.destroy if a.originator == self }
-      if payment.order.shipment.shipping_method.name != "Osebni prevzem"
+      #if payment.order.shipment.shipping_method.name != "Osebni prevzem"
         payment.order.adjustments.create({ :amount => payment.payment_method.preferred_charge.to_f,
                                  :source => payment,
                                  :originator => self,
                                  :mandatory => true,
                                  :label => I18n.t(:cash_on_delivery_label) }, :without_protection => true)
-        payment.update_attribute(:amount, payment.amount + payment.payment_method.preferred_charge.to_f) 
-      end
+        payment.update_attribute(:amount, payment.amount + payment.payment_method.preferred_charge.to_f)
+      #end
     end
 
     def update_adjustment(adjustment, src)
-      if adjustment.adjustable.shipment.shipping_method.name != "Osebni prevzem" && !adjustment.adjustable.payments.empty?  && adjustment.adjustable.payments.last.payment_method.is_a?(Spree::CashOnDelivery::PaymentMethod)
+      #if adjustment.adjustable.shipment.shipping_method.name != "Osebni prevzem" && !adjustment.adjustable.payments.empty?  && adjustment.adjustable.payments.last.payment_method.is_a?(Spree::CashOnDelivery::PaymentMethod)
+      if  !adjustment.adjustable.payments.empty?  && adjustment.adjustable.payments.last.payment_method.is_a?(Spree::CashOnDelivery::PaymentMethod)
         adjustment.update_attribute_without_callbacks(:amount, adjustment.adjustable.payments.last.payment_method.preferred_charge.to_f)
       else
         #adjustment.destroy
@@ -68,10 +69,10 @@ module Spree
     def method_type
       'cash_on_delivery'
     end
-    
+
     def auto_capture?
       true
     end
-    
+
   end
 end
